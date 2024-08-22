@@ -20,6 +20,120 @@
         9. If user's choice is scissors and the random number is 0, pc wins.
         10. Else, it's a draw. 
         */
+        let result; // If result is 0 human wins if its 1 computer wins and 2 if it is a draw. This values are used in playRound() and playGame()
+        
+        console.log("Welcome to Alejandro's Rock, Paper, Scissors game!");
+        
+        let userSelection = parseInt(prompt("Enter '1' for play one round or '2' for play five rounds"));
+
+        while (userSelection != 1 && userSelection != 2)
+        userSelection = parseInt(prompt("ERROR, PLEASE ENTER A CORRECT VALUE! Enter '1' for play one round or '2' for play five rounds"));
+        
+        if (userSelection == 1) playRound();
+        
+        else if (userSelection == 2) playGame();
+
+        function getComputerChoice() {
+            
+            let randomizer = Math.floor(Math.random() * 3);
+            let choice = choiceConverter(randomizer);
+            return choice;
+        }
+
+        function getHumanChoice(number) {
+            let choice = choiceConverter(number);
+            return choice;
+        }
+
+        function choiceConverter(number) {
+            
+            let choice;
+
+            switch (number) {
+                
+                case 0: choice = 'Rock';
+                break;
+
+                case 1: choice = 'Paper';
+                break;
+
+                case 2: choice = 'Scissors';
+                break;
+            }
+            
+            return choice;
+        } 
+
+        function playRound() {
+            
+            let humanChoice = getHumanChoice(parseInt(prompt('Choose 0 for ROCK, 1 for PAPER or 2 for SCISSORS.')));
+            let computerChoice = getComputerChoice();
+            result = 2;
+
+            if (humanChoice === 'Rock' && computerChoice === 'Scissors') {
+                result = 0;
+                console.log('Computer choice: Scissors. You won!');
+            }
+            
+            else if (humanChoice === 'Paper' && computerChoice === 'Rock') {
+                result = 0;
+                console.log('Computer choice: Rock. You won!');
+            }
+            
+            else if (humanChoice === 'Scissors' && computerChoice === 'Paper') {
+                result = 0;
+                console.log('Computer choice: Paper. You won!');
+            }
+            
+            else if (computerChoice === 'Rock' && humanChoice === 'Scissors') {
+                result = 1;
+                console.log('Computer choice: Rock. You loose!');
+            }
+            
+            
+            else if (computerChoice === 'Paper' && humanChoice === 'Rock') {
+                result = 1;
+                console.log('Computer choice: Paper. You loose!');
+            }
+            
+            else if (computerChoice === 'Scissors' && humanChoice === 'Paper') {
+                result = 1;
+                console.log('Computer choice: Scissors. You loose!');
+            }
+            
+            else return console.log("It's a tie!"); 
+        }
+
+        function playGame() {
+
+            let totalRounds = 0;
+            let humanScore = 0;
+            let computerScore = 0;
+
+            while (totalRounds < 5 || humanScore == computerScore) {
+                
+                console.log("SCORE: YOU " + humanScore + "-" + computerScore + " COMPUTER | TOTAL ROUNDS: " + totalRounds)
+
+                playRound();
+
+                if (result == 0) {
+                    humanScore++;
+                }
+
+                else if (result == 1) {
+                    computerScore++;
+                }
+
+                totalRounds++;
+            }
+
+            if (humanScore > computerScore) console.log("CONGRATULATIONS! YOU WON THE GAME!");
+
+            else console.log("BAD LUCK, YOU LOOSE! TRY AGAIN!");
+
+            console.log("SCORE: YOU " + humanScore + "-" + computerScore + " COMPUTER | TOTAL ROUNDS: " + totalRounds)
+        }
+
     </script>
 </body>
 </html>
